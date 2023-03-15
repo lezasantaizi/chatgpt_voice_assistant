@@ -1,2 +1,4 @@
-# -chatgpt-
-基于chatgpt的智能语音助手（macpro版本）
+# chatgpt_voice_assistant
+基于pyaudio，whisper， chatpgt制作的macpro简易版本语音助手
+
+
