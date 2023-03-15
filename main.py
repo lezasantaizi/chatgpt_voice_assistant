@@ -10,7 +10,7 @@ import pvcobra
 
 porcupine = pvporcupine.create(access_key='mKByxcjpUVaAtWV/JsM5zmJqZDBSxcn2kCQqd2ycXL/r+vLhcD+OFg==',keywords=['ok google'])
 cobra = pvcobra.create(access_key='mKByxcjpUVaAtWV/JsM5zmJqZDBSxcn2kCQqd2ycXL/r+vLhcD+OFg==')
-openai.api_key = "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"
+openai.api_key = ""
 
 def chatgpt_api(message):
     messages = []
