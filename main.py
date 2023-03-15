@@ -46,18 +46,17 @@ def wake():
     audio_stream.close()
     pa.terminate()
 
-def record_audio(wave_out_path, record_second):
-    """ 录音功能 """
-    p = pyaudio.PyAudio()  # 实例化对象
+def record_audio(wave_out_path):
+    p = pyaudio.PyAudio()  
     stream = p.open(format=pyaudio.paInt16,
                     channels=1,
                     rate=porcupine.sample_rate,
                     input=True,
-                    frames_per_buffer=porcupine.frame_length)  # 打开流，传入响应参数
-    wf = wave.open(wave_out_path, 'wb')  # 打开 wav 文件。
-    wf.setnchannels(1)  # 声道设置
-    wf.setsampwidth(p.get_sample_size(pyaudio.paInt16,))  # 采样位数设置
-    wf.setframerate(porcupine.sample_rate)  # 采样频率设置
+                    frames_per_buffer=porcupine.frame_length)  
+    wf = wave.open(wave_out_path, 'wb')  
+    wf.setnchannels(1) 
+    wf.setsampwidth(p.get_sample_size(pyaudio.paInt16,)) 
+    wf.setframerate(porcupine.sample_rate)  
 
     # vad
     pcm = stream.read(porcupine.frame_length)
@@ -80,8 +79,8 @@ def record_audio(wave_out_path, record_second):
     wf.close()
     print('Finished recording')
 
-def whisper_api():
-    file = open("/Users/xiaoming/Downloads/code/zyy/test_yinxiang/hello.wav", "rb")
+def whisper_api(wav_path):
+    file = open(wav_path, "rb")
     transcription = openai.Audio.transcribe("whisper-1", file)
     return(transcription["text"])
 
@@ -89,9 +88,10 @@ def main():
     while True:
       wake()
       print("start record")
-      record_audio("/Users/xiaoming/Downloads/code/zyy/test_yinxiang/hello.wav",3)
+      wav_path = "/Users/xiaoming/Downloads/hello.wav"
+      record_audio(wav_path)
       print("start whisper_api")
-      message = whisper_api()
+      message = whisper_api(wav_path)
       print(message)
       reply = chatgpt_api(message)
       print(reply)
